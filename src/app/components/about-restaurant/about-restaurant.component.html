@@ -1,1 +1,9 @@
-<p>about-restaurant works!</p>
+<div class="jumbotron">
+    <div class="container">
+        <h3><i routerLink='' class="fas fa-arrow-circle-left"></i> {{name}} <span [ngStyle]="{'color': '#'+ratingColor}" class="badge badge-light">{{rating}}/5 <i class="fas fa-star"></i></span></h3>
+        <h6 class="text-muted">{{cuisines}}</h6>
+        <p style="cursor: pointer" (click)="timingToggler()"><i class="fas fa-calendar-alt"></i> Click to see available timings</p>
+        <p *ngIf="timingToggle">{{timing}}</p>
+        <hr>
+    </div>
+</div>

@@ -1,1 +1,18 @@
-<p>restaurant works!</p>
+<a routerLink='/aboutRestaurant/{{restaurant.restaurant.id}}' class="list-group-item list-group-item-action">
+    <div class="row">
+        <div class="col-sm-4">
+            <div *ngIf="restaurant.restaurant.thumb; else noThumb">
+                <img src="{{restaurant.restaurant.thumb}}" alt="" class="img-responsive">
+            </div>
+            <ng-template #noThumb>
+                <img src="https://us.bgxme.com/images/no-img.png" height="200px" width="200px" alt="" class="img-responsive">
+            </ng-template>
+        </div>
+        <div class="col-sm-8 d-flex flex-column justify-content-center">
+            <h5 class="text-muted">{{restaurant.restaurant.name}}</h5>
+            <p>{{restaurant.restaurant.cuisines}}</p>
+            <p [ngStyle]="{'color': '#'+restaurant.restaurant.user_rating.rating_color}">Rating: {{restaurant.restaurant.user_rating.aggregate_rating}}/5</p>
+        </div>
+    </div>
+</a>
+
