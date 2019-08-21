@@ -22,7 +22,7 @@ export class ReviewListComponent implements OnInit {
       console.log(data.id);
     })
     this.zomatoService.getRestaurantReviews(this.restaurantId).subscribe(
-      data => {
+      (data: any) => {
         console.log(data);
         this.reviews = data.user_reviews;
       }

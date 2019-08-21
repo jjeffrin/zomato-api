@@ -17,6 +17,7 @@ export class AboutRestaurantComponent implements OnInit {
   timing: string;
   timingToggle: boolean = false;
   costForTwo: number;
+  currency: string;
   constructor(
     private activatedRoute: ActivatedRoute,
     private zomatoService: ZomatoApiService,
@@ -33,7 +34,7 @@ export class AboutRestaurantComponent implements OnInit {
       }
     );
     this.zomatoService.getRestaurantDetailsById(this.restaurantId).subscribe(
-      data => {
+      (data: any) => {
         console.log(data);
         console.log(data.user_rating.rating_color);
         this.name = data.name;
@@ -43,6 +44,7 @@ export class AboutRestaurantComponent implements OnInit {
         this.ratingColor = data.user_rating.rating_color;
         this.timing = data.timings;
         this.costForTwo = data.average_cost_for_two;
+        this.currency = data.currency;
       }
     )
   }

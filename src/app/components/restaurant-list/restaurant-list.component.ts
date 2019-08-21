@@ -9,7 +9,7 @@ import { debounceTime, map } from 'rxjs/operators';
 })
 export class RestaurantListComponent implements OnInit {
   @HostListener('input') onSearchChange() {
-    this.zomatoService.search(this.latitude, this.longitude, this.search).subscribe(data => {
+    this.zomatoService.search(this.latitude, this.longitude, this.search).subscribe((data: any) => {
       console.log(data.restaurants);
       this.restaurantList = data.restaurants;
     })
@@ -34,7 +34,7 @@ export class RestaurantListComponent implements OnInit {
     this.longitude = locationData.coords.longitude;
     console.log(this.latitude, this.longitude);
     this.zomatoService.getRestaurants(this.latitude, this.longitude).subscribe(
-      data => {
+      (data: any) => {
         console.log(data);
         this.location = data.location.title;
         data.nearby_restaurants.sort(function(a, b) { return b.restaurant.user_rating.aggregate_rating - a.restaurant.user_rating.aggregate_rating });

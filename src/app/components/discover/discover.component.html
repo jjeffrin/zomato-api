@@ -20,15 +20,15 @@
                     </div>
                 </div>
             </div>
-        <div *ngIf="restaurantList.length > 0; else emptyList">
+        <div *ngIf="restaurantList.length > 0">
             <div *ngFor="let restaurant of restaurantList">
                 <div class="list-group">
                     <app-restaurant [restaurant]="restaurant"></app-restaurant>
                 </div>
             </div>
         </div>
-        <ng-template #emptyList>
+        <div *ngIf="!settingLocation && restaurantList.length == 0">
             <h5>Start typing to discover...</h5>
-        </ng-template>
+        </div>
     </div>
 </div>

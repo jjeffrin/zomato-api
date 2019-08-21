@@ -8,6 +8,11 @@ import { ZomatoApiService } from 'src/app/services/zomato-api.service';
 })
 export class DiscoverComponent implements OnInit {
   location: string;
+  locationModel: {
+    location: {
+      title: string;
+    }
+  }
   latitude: number;
   longitude: number;
   entityId: number;
@@ -16,6 +21,7 @@ export class DiscoverComponent implements OnInit {
   searchLocation: string;
   restaurantList: any[] = [];
   locationList: any[] = [];
+  settingLocation: boolean;
   constructor(
     private zomatoService: ZomatoApiService
   ) { }
@@ -31,7 +37,7 @@ export class DiscoverComponent implements OnInit {
     this.longitude = locationData.coords.longitude;
     console.log(this.latitude, this.longitude);
     this.zomatoService.getRestaurants(this.latitude, this.longitude).subscribe(
-      data => {
+      (data: any) => {
         console.log(data);
         this.searchLocation = data.location.title;
         // data.nearby_restaurants.sort(function(a, b) { return b.restaurant.user_rating.aggregate_rating - a.restaurant.user_rating.aggregate_rating });
@@ -47,7 +53,7 @@ export class DiscoverComponent implements OnInit {
     }
     else {
       console.log('changes');
-      this.zomatoService.discoverRestaurant(this.entityId, this.entityType, this.search, this.latitude, this.longitude).subscribe(data => {
+      this.zomatoService.discoverRestaurant(this.entityId, this.entityType, this.search, this.latitude, this.longitude).subscribe((data: any) => {
         console.log(data);
         if (this.search !== '') {
           this.restaurantList = data.restaurants;
@@ -57,20 +63,18 @@ export class DiscoverComponent implements OnInit {
   }
 
   searchCity() {
+    this.settingLocation = true;
     console.log('city changes');
     if (this.searchLocation == '') {
       console.log("stay");
-      //this.restaurantList = [];
+      this.restaurantList = [];
     }
     else {
       console.log('changes');
-      this.zomatoService.searchCity(this.searchLocation).subscribe(data => {
+      this.zomatoService.searchCity(this.searchLocation).subscribe((data: any) => {
         console.log(data.location_suggestions[0]);
         this.restaurantList = [];
         this.locationList = data.location_suggestions;
-        // if (this.searchLocation !== '') {
-        //   this.restaurantList = data.restaurants;
-        // }
       });
     }
   }
@@ -81,6 +85,7 @@ export class DiscoverComponent implements OnInit {
     this.entityType = data.entity_type;
     this.searchLocation = data.title;
     this.locationList = [];
+    this.settingLocation = false;
   }
 
 }
