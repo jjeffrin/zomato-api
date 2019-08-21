@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ZomatoApiService } from 'src/app/services/zomato-api.service';
 
 @Component({
@@ -16,16 +16,20 @@ export class AboutRestaurantComponent implements OnInit {
   ratingColor: string;
   timing: string;
   timingToggle: boolean = false;
+  costForTwo: number;
   constructor(
     private activatedRoute: ActivatedRoute,
-    private zomatoService: ZomatoApiService
+    private zomatoService: ZomatoApiService,
+    private router: Router
   ) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(
       param => {
         console.log(param['id']);
+        this.zomatoService.passRestaurantId(this.restaurantId);
         this.restaurantId = param['id'];
+        // this.zomatoService.passRestaurantId(this.restaurantId);
       }
     );
     this.zomatoService.getRestaurantDetailsById(this.restaurantId).subscribe(
@@ -38,12 +42,18 @@ export class AboutRestaurantComponent implements OnInit {
         this.rating = data.user_rating.aggregate_rating;
         this.ratingColor = data.user_rating.rating_color;
         this.timing = data.timings;
+        this.costForTwo = data.average_cost_for_two;
       }
     )
   }
 
   timingToggler() {
     this.timingToggle = !this.timingToggle;
+  }
+
+  navigateToReviews() {
+    this.zomatoService.passRestaurantId(this.restaurantId);
+    this.router.navigate(['/aboutRestaurant/'+this.restaurantId+'/reviews']);
   }
 
 }

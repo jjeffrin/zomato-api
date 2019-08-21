@@ -1,0 +1,8 @@
+<div class="row">
+    <div class="col-sm-6">
+        <h4 [ngStyle]="{'color': '#'+review.rating_color}">{{review.rating_text}} | <span [ngStyle]="{'color': '#'+review.rating_color}">{{review.rating}}/5 <i class="fas fa-star"></i></span></h4>
+        <p>{{review.review_time_friendly}} by {{review.user.name}}</p>
+        <hr>
+        <p>{{review.review_text}}</p>
+    </div>
+</div>

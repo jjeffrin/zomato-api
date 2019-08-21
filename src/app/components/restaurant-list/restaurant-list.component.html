@@ -1,6 +1,7 @@
 <div class="jumbotron">
     <div class="container">
-        <h3>Nearby {{ location }}</h3>
+        <h3>Nearby {{ location }} | <i style="cursor: pointer" class="text-muted" routerLink='/discover'>Discover more...</i></h3>
+        <hr>
         <div *ngFor="let restaurant of restaurantList">
             <div class="list-group">
                 <app-restaurant [restaurant]="restaurant"></app-restaurant>

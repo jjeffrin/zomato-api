@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { ZomatoApiService } from 'src/app/services/zomato-api.service';
-
+import { debounceTime, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-restaurant-list',
@@ -8,11 +8,17 @@ import { ZomatoApiService } from 'src/app/services/zomato-api.service';
   styleUrls: ['./restaurant-list.component.css']
 })
 export class RestaurantListComponent implements OnInit {
+  @HostListener('input') onSearchChange() {
+    this.zomatoService.search(this.latitude, this.longitude, this.search).subscribe(data => {
+      console.log(data.restaurants);
+      this.restaurantList = data.restaurants;
+    })
+  }
   latitude: number;
   longitude: number;
   location: string;
   restaurantList: any[] = [];
-
+  search: string;
   constructor(
     private zomatoService: ZomatoApiService
   ) { }
