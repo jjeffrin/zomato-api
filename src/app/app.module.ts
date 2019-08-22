@@ -18,6 +18,7 @@ import { from } from 'rxjs';
 import { DiscoverComponent } from './components/discover/discover.component';
 import { LocationListComponent } from './components/location-list/location-list.component';
 import { LocationComponent } from './components/location/location.component';
+import { ReviewChartComponent } from './components/review-chart/review-chart.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { LocationComponent } from './components/location/location.component';
     MenuListComponent,
     DiscoverComponent,
     LocationListComponent,
-    LocationComponent
+    LocationComponent,
+    ReviewChartComponent
   ],
   imports: [
     BrowserModule,

@@ -18,6 +18,8 @@ export class AboutRestaurantComponent implements OnInit {
   timingToggle: boolean = false;
   costForTwo: number;
   currency: string;
+  address: string;
+  contact: string;
   constructor(
     private activatedRoute: ActivatedRoute,
     private zomatoService: ZomatoApiService,
@@ -45,6 +47,8 @@ export class AboutRestaurantComponent implements OnInit {
         this.timing = data.timings;
         this.costForTwo = data.average_cost_for_two;
         this.currency = data.currency;
+        this.address = data.location.address;
+        this.contact = data.phone_numbers;
       }
     )
   }
