@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RestaurantListComponent } from './components/restaurant-list/restaurant-list.component';
@@ -19,6 +19,7 @@ import { DiscoverComponent } from './components/discover/discover.component';
 import { LocationListComponent } from './components/location-list/location-list.component';
 import { LocationComponent } from './components/location/location.component';
 import { ReviewChartComponent } from './components/review-chart/review-chart.component';
+import { AuthInterceptorService } from './services/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,12 @@ import { ReviewChartComponent } from './components/review-chart/review-chart.com
     AppRoutingModule,
     FormsModule
   ],
-  providers: [ZomatoApiService],
+  providers: [
+    ZomatoApiService,
+    {
+      provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
